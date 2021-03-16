@@ -80,7 +80,10 @@ def lambda_handler(event, context):
     object = service.Object(bucket_name, photo_name)
 
     print(json.dumps(object.metadata))
-    custom_labels = object.metadata['customlabels'].split(',')
+    if "customlabels" in object.metadata:
+        custom_labels = object.metadata['customlabels'].split(',')
+    else:
+        custom_labels = []
     pass_object = {'S3Object': {'Bucket': bucket_name, 'Name': photo_name}}
     print('pass_object:', pass_object)
 
