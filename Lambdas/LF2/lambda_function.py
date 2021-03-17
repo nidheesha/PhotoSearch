@@ -19,8 +19,9 @@ def lambda_handler(event, context):
         userId='test',
         inputText=event['query']
     )
-    print(response["slots"]["keyWordOne"])
     print(response)
+
+    print(response["slots"]["keyWordOne"])
 
     # for i in range(len(query_txt)):
     #     inpTxt = query_txt[i].lower()
