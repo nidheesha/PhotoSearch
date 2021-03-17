@@ -41,7 +41,7 @@ def lambda_handler(event, context):
     # labels = re.split(',and|', keywords)
 
     es = Elasticsearch(
-        hosts=[{'host': 'search-photos-y37oe5x2pal2wacbfl22gcnkra.us-east-1.es.amazonaws.com', 'port': 443}],
+        hosts=[{'host': 'search-photosindex-kasqwzvxzvwhduhwz6wswjeif4.us-east-1.es.amazonaws.com', 'port': 443}],
         # http_auth = AWS4Auth(credentials.access_key, credentials.secret_key, region, 'es'),
         http_auth=('master', 'Nidheesha@97'),
         use_ssl=True,
