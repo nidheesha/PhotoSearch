@@ -36,9 +36,9 @@ def lambda_handler(event, context):
     # extract keyword from lexbot using slots in sample utterances
     labels = []
     if (response['slots']['keyWordOne']):
-        labels.append(response["slots"]["keyWordOne"])
+        labels.append(response["slots"]["keyWordOne"].lower())
     if (response['slots']['keyWordTwo']):
-        labels.append(response["slots"]["keyWordTwo"])
+        labels.append(response["slots"]["keyWordTwo"].lower())
     # keywords = response['slots']['obj1']
     # labels = re.split(',and|', keywords)
 
