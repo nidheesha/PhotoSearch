@@ -1,9 +1,11 @@
 import json
 import boto3
 from elasticsearch import Elasticsearch, RequestsHttpConnection
-from pattern.text.en import singularize
+#from pattern.text.en import singularize
 import time
+import inflect
 
+p = inflect.engine()
 
 def getESbody(photo_name, bucket_name, labels):
     timestamp = time.time()
@@ -83,7 +85,7 @@ def lambda_handler(event, context):
     print(json.dumps(object.metadata))
     if "customlabels" in object.metadata:
         custom_labels = object.metadata['customlabels'].split(',')
-        custom_labels = [singularize(label.lower()) for label in custom_labels]
+        custom_labels = [p.plural(label.lower()) for label in custom_labels]
     else:
         custom_labels = []
     pass_object = {'S3Object': {'Bucket': bucket_name, 'Name': photo_name}}
@@ -94,7 +96,7 @@ def lambda_handler(event, context):
 
     labels = []
     for i in range(len(resp['Labels'])):
-        labels.append(singularize(resp['Labels'][i]['Name'].lower()))
+        labels.append(p.plural(resp['Labels'][i]['Name'].lower()))
 
     labels.extend(custom_labels)
     print(labels)

@@ -1,7 +1,10 @@
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 import json
 import boto3
-from pattern.text.en import singularize
+#from pattern.text.en import singularize
+import inflect
+
+p = inflect.engine()
 
 
 def lambda_handler(event, context):
@@ -38,9 +41,9 @@ def lambda_handler(event, context):
     # extract keyword from lexbot using slots in sample utterances
     labels = []
     if (response['slots']['keyWordOne']):
-        labels.append(singularize(response["slots"]["keyWordOne"].lower()))
+        labels.append(p.plural(response["slots"]["keyWordOne"].lower()))
     if (response['slots']['keyWordTwo']):
-        labels.append(singularize(response["slots"]["keyWordTwo"].lower()))
+        labels.append(p.plural(response["slots"]["keyWordTwo"].lower()))
     # keywords = response['slots']['obj1']
     # labels = re.split(',and|', keywords)
 
