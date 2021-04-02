@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 import json
 import boto3
+from pattern.text.en import singularize
 
 
 def lambda_handler(event, context):
@@ -26,7 +27,8 @@ def lambda_handler(event, context):
     # for i in range(len(query_txt)):
     #     inpTxt = query_txt[i].lower()
     #     response = client.post_text(
-    #         botName='SearchQuery',
+    #         botName='SearchQuery
+    #         ',
     #         botAlias ='search',
     #         userId='test',
     #         inpuText=inpTxt
@@ -36,9 +38,9 @@ def lambda_handler(event, context):
     # extract keyword from lexbot using slots in sample utterances
     labels = []
     if (response['slots']['keyWordOne']):
-        labels.append(response["slots"]["keyWordOne"].lower())
+        labels.append(singularize(response["slots"]["keyWordOne"].lower()))
     if (response['slots']['keyWordTwo']):
-        labels.append(response["slots"]["keyWordTwo"].lower())
+        labels.append(singularize(response["slots"]["keyWordTwo"].lower()))
     # keywords = response['slots']['obj1']
     # labels = re.split(',and|', keywords)
 
