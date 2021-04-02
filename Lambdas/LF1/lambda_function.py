@@ -85,7 +85,7 @@ def lambda_handler(event, context):
     print(json.dumps(object.metadata))
     if "customlabels" in object.metadata:
         custom_labels = object.metadata['customlabels'].split(',')
-        custom_labels = [p.plural(label.lower()) for label in custom_labels]
+        custom_labels = [p.plural(label.lower()) if p.singular_noun(label.lower()) else label.lower() for label in custom_labels]
     else:
         custom_labels = []
     pass_object = {'S3Object': {'Bucket': bucket_name, 'Name': photo_name}}
@@ -96,7 +96,8 @@ def lambda_handler(event, context):
 
     labels = []
     for i in range(len(resp['Labels'])):
-        labels.append(p.plural(resp['Labels'][i]['Name'].lower()))
+        x = resp['Labels'][i]['Name'].lower()
+        labels.append(p.plural(x) if p.singular_noun(x) else x)
 
     labels.extend(custom_labels)
     print(labels)
