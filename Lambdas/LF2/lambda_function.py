@@ -8,6 +8,7 @@ p = inflect.engine()
 
 
 def lambda_handler(event, context):
+    print("test codepipeline2 ")
     # TODO implement
 
     # dismbiguate search query using lex bot

@@ -72,6 +72,7 @@ def elasticSearch(cuisine=''):
 
 
 def lambda_handler(event, context):
+    print("test code pipeline")
     print(json.dumps(event))
     client = boto3.client('rekognition')
 
